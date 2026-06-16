@@ -1,6 +1,6 @@
 /**
  * Fonction globale pour récupérer le paramètre 'id' imbriqué dans l'URL de la page
- * @returns {string|null} L'identifiant unique de la peluche
+ * @returns {string|null} 
  */
 function getProductId() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -18,7 +18,6 @@ function fetchSingleTeddy() {
         return;
     }
 
-    // Appel GET ciblé sur l'identifiant unique given_id
     fetch(`http://localhost:3000/api/teddies/${productId}`)
         .then(response => {
             if (!response.ok) {
@@ -36,19 +35,17 @@ function fetchSingleTeddy() {
 }
 
 /**
- * Fonction globale pour générer le layout Premium de la page produit
- * @param {Object} teddy - Objet contenant toutes les spécifications de la peluche sélectionnée
+ * Fonction globale pour générer la page produit
+ * @param {Object} teddy 
  */
 function displaySingleProduct(teddy) {
     const container = document.getElementById("product-details");
 
-    // Génération dynamique des balises <option> pour le tableau de personnalisation "couleurs"
     let colorsOptions = "";
     teddy.colors.forEach(color => {
         colorsOptions += `<option value="${color}">${color}</option>`;
     });
 
-    // Injection de la structure de grille (Layout image à gauche / texte à droite)
     container.innerHTML = `
         <div class="product-detail-layout">
             <img src="${teddy.imageUrl}" alt="${teddy.name}">
@@ -70,15 +67,14 @@ function displaySingleProduct(teddy) {
         </div>
     `;
 
-    // Écouteur d'événement pour le stockage local du produit au clic
     document.getElementById("bouton-panier").addEventListener("click", () => {
         addToCart(teddy._id);
     });
 }
 
 /**
- * Fonction globale pour ajouter l'id de la peluche dans le panier (localStorage) avec quantité
- * @param {string} id - L'ID de l'élément à stocker
+ * Fonction globale pour ajouter l'id de la peluche dans le panier
+ * @param {string} id 
  */
 function addToCart(id) {
     const quantity = parseInt(document.getElementById("quantite").value);
@@ -88,5 +84,4 @@ function addToCart(id) {
     alert("🧸 Peluche ajoutée avec succès à votre panier !");
 }
 
-// Initialisation au chargement du script
 fetchSingleTeddy();

@@ -3,8 +3,8 @@ let cartData = {};
 
 /**
  * Fonction pour mettre à jour la quantité d'un produit
- * @param {string} productId - L'ID du produit
- * @param {number} newQuantity - La nouvelle quantité
+ * @param {string} productId 
+ * @param {number} newQuantity 
  */
 function updateQuantity(productId, newQuantity) {
     let cart = JSON.parse(localStorage.getItem("panier")) || {};
@@ -19,7 +19,7 @@ function updateQuantity(productId, newQuantity) {
 
 /**
  * Fonction pour supprimer un produit du panier
- * @param {string} productId - L'ID du produit à supprimer
+ * @param {string} productId 
  */
 function removeFromCart(productId) {
     let cart = JSON.parse(localStorage.getItem("panier")) || {};
@@ -29,14 +29,13 @@ function removeFromCart(productId) {
 }
 
 /**
- * Fonction globale pour charger le contenu du panier avec gestion des quantités
+ * Fonction globale pour charger le contenu du panier 
  */
 function loadCart() {
     cartData = JSON.parse(localStorage.getItem("panier")) || {};
     const itemsContainer = document.getElementById("cart-items");
     const totalDisplay = document.getElementById("cart-total");
 
-    // Migration depuis l'ancien format tableau si nécessaire
     if (Array.isArray(cartData)) {
         const newCart = {};
         cartData.forEach(id => {
@@ -55,13 +54,11 @@ function loadCart() {
     itemsContainer.innerHTML = "";
     totalAmount = 0;
 
-    // Création d'un tableau de promesses fetch pour paralléliser les requêtes API par ID
     const productIds = Object.keys(cartData);
     const apiRequests = productIds.map(id =>
         fetch(`http://localhost:3000/api/teddies/${id}`).then(res => res.json())
     );
 
-    // Résolution synchronisée de toutes les requêtes d'un coup grâce à Promise.all
     Promise.all(apiRequests)
         .then(products => {
             products.forEach((teddy, index) => {
@@ -92,7 +89,6 @@ function loadCart() {
                 itemsContainer.appendChild(row);
             });
 
-            // Attachement des événements pour les contrôles de quantité
             document.querySelectorAll(".btn-qty").forEach(btn => {
                 btn.addEventListener("click", (e) => {
                     const productId = e.target.dataset.id;
@@ -121,7 +117,6 @@ function loadCart() {
                 });
             });
 
-            // Affichage mis à jour du prix final formaté en euros
             totalDisplay.innerHTML = `Total : ${(totalAmount / 100).toFixed(2)} €`;
         })
         .catch(error => {
@@ -130,7 +125,7 @@ function loadCart() {
 }
 
 /**
- * Écouteur sur l'envoi du formulaire avec validation Regex stricte avant envoi POST
+ * Écouteur sur l'envoi du formulaire 
  */
 document.getElementById("order-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Annule le rechargement de page automatique
@@ -142,7 +137,6 @@ document.getElementById("order-form").addEventListener("submit", function(event)
     const city = document.getElementById("city").value.trim();
     const email = document.getElementById("email").value.trim();
 
-    // Filtres Regex pour la validation (Exclut les nombres/champs dates dans Prénom/Nom/Ville)
     const textRegex = /^[a-zA-ZÀ-ÿ\s-]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -161,7 +155,6 @@ document.getElementById("order-form").addEventListener("submit", function(event)
         return;
     }
 
-    // Conversion de {id: qty} en [id, id, id, ...] pour l'API
     const products = [];
     for (const [productId, quantity] of Object.entries(cartData)) {
         for (let i = 0; i < quantity; i++) {
@@ -169,7 +162,6 @@ document.getElementById("order-form").addEventListener("submit", function(event)
         }
     }
 
-    // Préparation du Payload attendu par la route POST /order
     const orderPayload = {
         contact: {
             firstName: firstName,
@@ -181,7 +173,6 @@ document.getElementById("order-form").addEventListener("submit", function(event)
         products: products
     };
 
-    // Envoi de la commande finale
     fetch("http://localhost:3000/api/teddies/order", {
         method: "POST",
         headers: {
@@ -196,14 +187,11 @@ document.getElementById("order-form").addEventListener("submit", function(event)
         return response.json();
     })
     .then(data => {
-        // Sauvegarde de l'orderId (string) et du prix calculé pour la page de confirmation
         sessionStorage.setItem("orderId", data.orderId);
         sessionStorage.setItem("prixTotal", (totalAmount / 100).toFixed(2));
 
-        // Nettoyage final du panier local
         localStorage.removeItem("panier");
 
-        // Redirection instantanée
         window.location.href = "confirmation.html";
     })
     .catch(error => {
@@ -212,5 +200,4 @@ document.getElementById("order-form").addEventListener("submit", function(event)
     });
 });
 
-// Initialisation au chargement du script
 loadCart();

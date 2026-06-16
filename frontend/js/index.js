@@ -1,6 +1,5 @@
 /**
  * Fonction globale pour récupérer la liste des ours en peluche depuis l'API
- * Utilise une Promesse (fetch) pour éviter le callback hell
  */
 function fetchTeddies() {
     fetch("http://localhost:3000/api/teddies")
@@ -11,7 +10,6 @@ function fetchTeddies() {
             return response.json();
         })
         .then(teddies => {
-            // Une fois les données récoltées, on lance l'affichage dynamique
             displayTeddies(teddies);
         })
         .catch(error => {
@@ -26,19 +24,17 @@ function fetchTeddies() {
 }
 
 /**
- * Fonction globale pour injecter les cartes produits dans le DOM HTML
- * @param {Array} teddies - Tableau d'objets contenant les ours en peluche
+ * Fonction globale pour injecter les cartes produits 
+ * @param {Array} teddies 
  */
 function displayTeddies(teddies) {
     const container = document.getElementById("products-container");
-    container.innerHTML = ""; // On nettoie le texte "Chargement..."
+    container.innerHTML = ""; 
 
-    // Boucle sur chaque ours en peluche du catalogue
     teddies.forEach(teddy => {
         const productCard = document.createElement("div");
         productCard.className = "product-card";
         
-        // Structure de la carte avec les attributs requis du PDF
         productCard.innerHTML = `
             <img src="${teddy.imageUrl}" alt="${teddy.name}">
             <div class="product-card-body">
@@ -54,5 +50,4 @@ function displayTeddies(teddies) {
     });
 }
 
-// Initialisation au chargement du script
 fetchTeddies();

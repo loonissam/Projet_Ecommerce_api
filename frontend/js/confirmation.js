@@ -7,7 +7,6 @@ function checkConfirmationDetails() {
     const totalPaid = sessionStorage.getItem("prixTotal");
     const container = document.getElementById("confirmation-details");
 
-    // Redirection de secours si l'utilisateur tente de forcer l'accès direct à la page sans commande
     if (!orderId || !totalPaid) {
         container.innerHTML = `
             <p style="color: #6c757d;">Aucun reçu de commande récent n'a été détecté.</p>
@@ -15,7 +14,6 @@ function checkConfirmationDetails() {
         return;
     }
 
-    // Injection des données validées reçues du serveur backend
     container.innerHTML = `
         <p style="font-size: 1.1rem; color: #2b2d42; margin-bottom: 1rem;">
             Montant total débité : <strong style="color: #d4a373; font-size: 1.4rem;">${totalPaid} €</strong>
@@ -26,10 +24,8 @@ function checkConfirmationDetails() {
         </p>
     `;
 
-    // Nettoyage complet du sessionStorage pour préserver la confidentialité
     sessionStorage.removeItem("orderId");
     sessionStorage.removeItem("prixTotal");
 }
 
-// Initialisation au chargement du script
 checkConfirmationDetails();
