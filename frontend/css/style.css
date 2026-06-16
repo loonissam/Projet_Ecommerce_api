@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+/* --- ARCHITECTURE & BASES --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #fcfbf7;
+    color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- BARRE DE NAVIGATION (HEADER) --- */
+header {
+    background: #ffffff;
+    padding: 1.25rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #3d2c25;
+    letter-spacing: -0.5px;
+}
+
+nav a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-left: 2rem;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #c08261;
+}
+
+/* --- LOGIQUE DE GRILLE ET PAGES --- */
+main {
+    max-width: 1200px;
+    width: 100%;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    flex: 1;
+}
+
+h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    color: #3d2c25;
+    letter-spacing: -0.5px;
+}
+
+/* --- GRILLE DE PRODUITS (ACCUEIL) --- */
+#products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+/* CARTES PREMIUM */
+.product-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.01);
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(61, 44, 37, 0.08);
+}
+
+.product-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.product-card-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.product-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #3d2c25;
+}
+
+.product-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex: 1;
+}
+
+.product-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.product-card .price {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #3d2c25;
+}
+
+/* BOUTON CHIC */
+.product-card a, .btn-premium, #bouton-panier, #btn-commander {
+    background: #3d2c25;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.9rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    text-align: center;
+}
+
+.product-card a:hover, .btn-premium:hover, #bouton-panier:hover, #btn-commander:hover {
+    background: #c08261;
+}
+
+/* --- DETAILS PRODUIT --- */
+.product-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+@media (max-width: 768px) {
+    .product-detail-layout { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; }
+}
+
+.product-detail-layout img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.product-detail-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-detail-info .price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #c08261;
+    margin: 1rem 0 1.5rem 0;
+}
+
+select {
+    width: 100%;
+    padding: 1.1rem;
+    border-radius: 14px;
+    border: 1px solid #e5e5e5;
+    background-color: #f9f9f9;
+    margin: 0.5rem 0 2.5rem 0;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- PANIER --- */
+#cart-items {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    margin-bottom: 2rem;
+}
+
+.cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.1rem;
+    gap: 1rem;
+}
+
+.cart-item-row:last-child {
+    border-bottom: none;
+}
+
+/* Contrôles de quantité */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 1rem;
+}
+
+.btn-qty {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+}
+
+.btn-qty:hover {
+    background: #e0e0e0;
+}
+
+.qty-input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.3rem;
+    font-weight: 700;
+    font-family: inherit;
+}
+
+/* Bouton de suppression */
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+
+#cart-total {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: right;
+    padding: 1.5rem 2.5rem;
+    background: #fdfaf4;
+    border-radius: 14px;
+    color: #3d2c25;
+}
+
+/* FORMULAIRE DESIGN */
+#order-form {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    margin-top: 4rem;
+}
+
+#order-form h3 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1.1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fafafa;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #c08261;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(192, 130, 97, 0.15);
+}
+
+#btn-commander {
+    width: 100%;
+    padding: 1.3rem;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #ffffff;
+    text-align: center;
+    padding: 2.5rem;
+    color: #888;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.02);
+    margin-top: auto;
+}

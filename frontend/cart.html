@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orinoco - Mon Panier</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Orinoco • Panier</h1>
+        <nav>
+            <a href="./index.html">Accueil</a>
+            <a href="./cart.html">Mon Panier</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Votre Panier</h2>
+        <div id="cart-items">
+            <p>Votre panier est vide.</p>
+        </div>
+        <div id="cart-total">Total : 0.00 €</div>
+
+        <form id="order-form">
+            <h3>Informations de livraison</h3>
+            <br>
+            <div class="form-group">
+                <label for="firstName">Prénom :</label>
+                <input type="text" id="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Nom :</label>
+                <input type="text" id="lastName" required>
+            </div>
+            <div class="form-group">
+                <label center for="address">Adresse :</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Ville :</label>
+                <input type="text" id="city" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Adresse Email :</label>
+                <input type="email" id="email" required>
+            </div>
+            <button type="submit" id="btn-commander">Confirmer et payer</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>© 2026 - Projet Orinoco</p>
+    </footer>
+
+    <script src="./js/cart.js"></script>
+</body>
+</html>
